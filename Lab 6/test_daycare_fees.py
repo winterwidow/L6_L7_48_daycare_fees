@@ -68,4 +68,4 @@ def test_pickup_late_aftercare_friday():
 
 
 def test_pickup_overdue_regular_day():
-    assert pickup_status(-1, False, False) == "overdue"
+    assert pickup_status(-6, False, False) == "overdue"
