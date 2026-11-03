@@ -43,3 +43,29 @@ def test_non_infant_large_extra_hours():
     assert extra_hours_fee("toddler", 46, False) == 294
 
 
+def test_pending_immunisation_allowed():
+    assert enrolment_allowed(12, 0, True) is True
+
+
+def test_pending_immunisation_too_young():
+    assert enrolment_allowed(11, 5, True) is False
+
+
+def test_enrolment_rejected_for_low_age():
+    assert enrolment_allowed(5, 2, False) is False
+
+
+def test_enrolment_rejected_without_vacancy():
+    assert enrolment_allowed(24, 0, False) is False
+
+
+def test_pickup_on_time_regular_day():
+    assert pickup_status(10, False, False) == "on_time"
+
+
+def test_pickup_late_aftercare_friday():
+    assert pickup_status(20, True, True) == "late"
+
+
+def test_pickup_overdue_regular_day():
+    assert pickup_status(-1, False, False) == "overdue"
