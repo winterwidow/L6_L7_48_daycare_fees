@@ -60,21 +60,31 @@ def payable_fee(text):
         return None
 
     total = fee * 1.18 - discount
+    if not math.isfinite(total):
+        return None
     return max(total, 0)
+
+
+def _read_input(prompt):
+    try:
+        return input(prompt)
+    except EOFError:
+        return None
+
 
 def main():
     print("==== Running parse_enrolment ====")
-    user_input = input("Enter age group:hours (e.g. toddler:25): ")
+    user_input = _read_input("Enter age group:hours (e.g. toddler:25): ")
     result = parse_enrolment(user_input)
     print("Age Group and Hours:", result)
 
     print("\n==== Running hours_average ====")
-    user_input = input("Enter weekly hours as CSV (e.g. 20,25,30): ")
+    user_input = _read_input("Enter weekly hours as CSV (e.g. 20,25,30): ")
     result = hours_average(user_input)
     print("Average Hours:", result)
 
     print("\n==== Running payable_fee ====")
-    user_input = input("Enter fee|discount (e.g. 3000|250): ")
+    user_input = _read_input("Enter fee|discount (e.g. 3000|250): ")
     result = payable_fee(user_input)
     print("Payable Fee:", result)
 
